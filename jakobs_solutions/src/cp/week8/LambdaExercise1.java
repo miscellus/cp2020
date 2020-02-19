@@ -12,4 +12,16 @@ public class LambdaExercise1
 	
 	Add a public method called "content()" that returns the content of the box.
 	*/
+    
+    public static class Box<T> {
+        private final T content;
+        
+        public Box(T content) {
+            this.content = content;
+        }
+        
+        public T content() {
+            return this.content;
+        }
+    }
 }

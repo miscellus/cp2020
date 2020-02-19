@@ -27,10 +27,7 @@ public class LambdaExercise2
     public static class Box<T> {
         private final T content;
         
-        public Box(T content) throws IllegalArgumentException {
-            if (content == null) {
-                throw new IllegalArgumentException();
-            }
+        public Box(T content) {
             this.content = content;
         }
         
@@ -38,12 +35,12 @@ public class LambdaExercise2
             return this.content;
         }
         
-        public <O> O apply(BoxFunction<T, O> fn) {
+        public <O> O apply(BoxFunction<T,O> fn) {
             return fn.apply(content);
         }
     }
-        
+    
     public interface BoxFunction<I,O> {
-        O apply(I input);
+        public O apply(I input);
     }
 }
