@@ -23,27 +23,4 @@ public class LambdaExercise2
 	- Modify the Box class constructor such that it throws an IllegalArgumentException
 	  if the passed content is null.
 	*/
-    
-    public static class Box<T> {
-        private final T content;
-        
-        public Box(T content) throws IllegalArgumentException {
-            if (content == null) {
-                throw new IllegalArgumentException();
-            }
-            this.content = content;
-        }
-        
-        public T content() {
-            return this.content;
-        }
-        
-        public <O> O apply(BoxFunction<T, O> fn) {
-            return fn.apply(content);
-        }
-    }
-        
-    public interface BoxFunction<I,O> {
-        O apply(I input);
-    }
 }
