@@ -19,9 +19,9 @@ public class LambdaExercise4
         final ArrayList<String> list = new ArrayList<>();
         list.add("en");
         list.add("fem");
-        list.add("nitten");
-        list.add("otteogtyve");
-        list.add("seksogfyrretyvende");
+        list.add("otte");
+        list.add("niogtyve");
+        list.add("seksoghalvtredsenstyvende");
         
         LambdaExercise2.Box<ArrayList<String>> boxed_list_of_strings
                 = new LambdaExercise2.Box<>(list);

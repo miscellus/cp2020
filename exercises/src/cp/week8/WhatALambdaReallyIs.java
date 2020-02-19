@@ -1,15 +1,21 @@
-package cp.end_of_slides2;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package cp.week8;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.function.BiFunction;
 
-public class ExercisesFromSlides {
+/**
+ *
+ * @author jakob
+ */
+public class WhatALambdaReallyIs {
     /*
     Opt: Define a generic class Pair<K,V> that can store pairs of values of any types.
     Opt: Create a List of Pair<String, Integer> with some values. For each pair containing a string s and an integer n, we say that s is associated to n.
@@ -31,30 +37,18 @@ public class ExercisesFromSlides {
         Map<String, Integer> stringToSum = new Hashtable<>();
         
         for (Pair<String, Integer> p : list) {
-            // Using our own implementation of a functional interface (Which is what a lambda is):
-            stringToSum.merge(p.key, p.value, new OurMergeFunction());
-            /*
-            // Using a lambda function:
-            stringToSum.merge(p.key, p.value,
-                    (Integer currentValue, Integer newValue) -> currentValue+newValue);
-            */
+            stringToSum.merge(
+                    p.key,
+                    p.value,
+                    new MergeFunction());
         }
         
-        for (Entry<String, Integer> e: stringToSum.entrySet()) {
+        for (Map.Entry<String, Integer> e: stringToSum.entrySet()) {
             System.out.println(e.getKey()+ ": " + e.getValue());
         }
     }
     
-    // NOTE(Jakob): This is what the labmda above expands to behind the scenes:
-    //              The implemented interface `BiFunction' will vary depending
-    //              on the amount of arguments the lambda takes;
-    //              for instance, if the function should only take one argument
-    //              the implemented interface would be just `Function'.
-    //              These interfaces, `BiFunction' and `Function' are called
-    //              *functional interfaces*, you can also define your own
-    //              functional interfaces; they really are just interfaces with
-    //              a single method.
-    public static class OurMergeFunction implements BiFunction<Integer, Integer, Integer> {
+    public static class MergeFunction implements BiFunction<Integer, Integer, Integer> {
         @Override
         public Integer apply(Integer currentValue, Integer newValue) {
             return currentValue + newValue;
@@ -71,4 +65,5 @@ public class ExercisesFromSlides {
         }
         
     }
+
 }
