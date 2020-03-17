@@ -31,10 +31,10 @@ public class ThreadsExercise3
     public static void main(String[] args)
 	{
 		List<Path> paths = new ArrayList<>();
-		paths.add( Paths.get( "week10/text1.txt" ) );
-		paths.add( Paths.get( "week10/text2.txt" ) );
-		paths.add( Paths.get( "week10/text3.txt" ) );
-		paths.add( Paths.get( "week10/text4.txt" ) );
+		paths.add( Paths.get( "files/text1.txt" ) );
+		paths.add( Paths.get( "files/text2.txt" ) );
+		paths.add( Paths.get( "files/text3.txt" ) );
+		paths.add( Paths.get( "files/text4.txt" ) );
 		
 		// word -> number of times it appears
 		final List<Map<String, Integer>> occurrenceMaps = new ArrayList<>(paths.size());
