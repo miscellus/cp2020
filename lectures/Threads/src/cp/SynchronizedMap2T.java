@@ -5,41 +5,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 public class SynchronizedMap2T
 {
 	public static void main()
 	{
-		Map< String, Integer > results = new HashMap<>();
+		// word -> number of times that it appears over all files
+		Map< String, Integer > occurrences = new HashMap<>();
 		
-		Thread t1 = new Thread( () -> {
-			try {
-				Files.lines( Paths.get( "text1.txt" ) )
-					.flatMap( s -> Stream.of( s.split( " " ) ) )
-					.forEach( word -> {
-						synchronized( results ) {
-							results.merge( word, 1, Integer::sum );
-						}
-					} );
-			} catch( IOException e ) {
-				e.printStackTrace();
-			}
-		});
-		
-		Thread t2 = new Thread( () -> {
-			try {
-				Files.lines( Paths.get( "text2.txt" ) )
-					.flatMap( s -> Stream.of( s.split( " " ) ) )
-					.forEach( word -> {
-						synchronized( results ) {
-							results.merge( word, 1, Integer::sum );
-						}
-					} );
-			} catch( IOException e ) {
-				e.printStackTrace();
-			}
-		});
+		Thread t1 = new Thread( () -> computeOccurrences( "text1.txt", occurrences ) );
+		Thread t2 = new Thread( () -> computeOccurrences( "text2.txt", occurrences ) );
 		
 		t1.start();
 		t2.start();
@@ -47,6 +22,24 @@ public class SynchronizedMap2T
 			t1.join();
 			t2.join();
 		} catch( InterruptedException e ) {
+			e.printStackTrace();
+		}
+		
+//		occurrences.forEach( (word, n) -> System.out.println( word + ": " + n ) );
+	}
+	
+	private static void computeOccurrences( String filename, Map< String, Integer > occurrences )
+	{
+		try {
+			Files.lines( Paths.get( filename ) )
+				.flatMap( Words::extractWords )
+				.map( String::toLowerCase )
+				.forEach( s -> {
+					synchronized( occurrences ) {
+						occurrences.merge( s, 1, Integer::sum );
+					}
+				} );
+		} catch( IOException e ) {
 			e.printStackTrace();
 		}
 	}
