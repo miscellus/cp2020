@@ -1,4 +1,4 @@
-package cp.week12;
+package common;
 
 import java.io.IOException;
 import java.nio.file.Files;
