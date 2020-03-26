@@ -35,7 +35,7 @@ public class ThreadsExercise10
 		CountDownLatch latch = new CountDownLatch( 1 ); // Wait and see (^:
         AtomicInteger activeThreadCount = new AtomicInteger(0);
         
-		Files.walk(Path.of("files/data/"))
+		Files.walk(Path.of("data/"))
             .filter(Files::isRegularFile)
 			.map( path -> new Thread( () -> {
                 activeThreadCount.incrementAndGet();

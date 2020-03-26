@@ -42,7 +42,7 @@ public class ThreadsExercise9
 		CountDownLatch latch = new CountDownLatch( filenames.size() );
 		
 		filenames.stream()
-            .map( filename -> "files/" + filename )
+            .map( filename -> "data/" + filename )
 			.map( filename -> new Thread( () -> {
 				computeOccurrences( filename, globalWordSetsPerCharacter );
 				latch.countDown();

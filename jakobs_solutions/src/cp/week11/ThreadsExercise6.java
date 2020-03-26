@@ -34,10 +34,10 @@ public class ThreadsExercise6
         
         // The text files still exist in the week10 directory
         final String[] filanameArray = new String[] {
-                "files/text1.txt",
-                "files/text2.txt",
-                "files/text3.txt",
-                "files/text4.txt"};
+                "data/text1.txt",
+                "data/text2.txt",
+                "data/text3.txt",
+                "data/text4.txt"};
         
         Stream<String> filenames1 = Stream.of(filanameArray);
         Stream<String> filenames2 = Stream.of(filanameArray);

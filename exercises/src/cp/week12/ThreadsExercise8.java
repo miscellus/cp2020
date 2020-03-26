@@ -27,16 +27,16 @@ public class ThreadsExercise8
 		Map< String, Integer > occurrences = new HashMap<>();
 		
 		List< String > filenames = List.of(
-			"files/text1.txt",
-			"files/text2.txt",
-			"files/text3.txt",
-			"files/text4.txt",
-			"files/text5.txt",
-			"files/text6.txt",
-			"files/text7.txt",
-			"files/text8.txt",
-			"files/text9.txt",
-			"files/text10.txt"
+			"data/text1.txt",
+			"data/text2.txt",
+			"data/text3.txt",
+			"data/text4.txt",
+			"data/text5.txt",
+			"data/text6.txt",
+			"data/text7.txt",
+			"data/text8.txt",
+			"data/text9.txt",
+			"data/text10.txt"
 		);
 		
 		CountDownLatch latch = new CountDownLatch( filenames.size() );

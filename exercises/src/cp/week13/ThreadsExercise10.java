@@ -32,7 +32,7 @@ public class ThreadsExercise10
         
         final List<Thread> threads = new ArrayList<>();
         
-		Files.walk(Path.of("files/data"))
+		Files.walk(Path.of("data"))
             .filter(Files::isRegularFile)
             .filter(path -> path.toString().endsWith(".txt"))
 			.forEach( path -> {

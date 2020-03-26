@@ -32,7 +32,7 @@ public class ThreadsExercise3
         {
             Thread t1 = new Thread( () -> {
                 try {
-                    Files.lines( Paths.get( "week10/text1.txt" ) )
+                    Files.lines( Paths.get( "data/text1.txt" ) )
                         .flatMap( s -> Stream.of( s.split( " " ) ) )
                         .forEach( word -> {
                             synchronized( resultsSerial ) {
@@ -46,7 +46,7 @@ public class ThreadsExercise3
 
             Thread t2 = new Thread( () -> {
                 try {
-                    Files.lines( Paths.get( "week10/text2.txt" ) )
+                    Files.lines( Paths.get( "data/text2.txt" ) )
                         .flatMap( s -> Stream.of( s.split( " " ) ) )
                         .forEach( word -> {
                             synchronized( resultsSerial ) {
@@ -73,7 +73,7 @@ public class ThreadsExercise3
 		
 		Thread t1 = new Thread( () -> {
 			try {
-				Files.lines( Paths.get( "week10/text1.txt" ) )
+				Files.lines( Paths.get( "data/text1.txt" ) )
 					.flatMap( s -> Stream.of( s.split( " " ) ) )
 					.forEach( word -> {
 						//synchronized( results1 ) {
@@ -87,7 +87,7 @@ public class ThreadsExercise3
 		
 		Thread t2 = new Thread( () -> {
 			try {
-				Files.lines( Paths.get( "week10/text2.txt" ) )
+				Files.lines( Paths.get( "data/text2.txt" ) )
 					.flatMap( s -> Stream.of( s.split( " " ) ) )
 					.forEach( word -> {
 						//synchronized( results2 ) {
