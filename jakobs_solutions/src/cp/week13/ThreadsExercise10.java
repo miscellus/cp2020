@@ -35,7 +35,7 @@ public class ThreadsExercise10
 		CountDownLatch latch = new CountDownLatch( 1 ); // Wait and see (^:
         AtomicInteger activeThreadCount = new AtomicInteger(0);
         
-		Files.walk(Path.of("files/"))
+		Files.walk(Path.of("files/data/"))
             .filter(Files::isRegularFile)
 			.map( path -> new Thread( () -> {
                 activeThreadCount.incrementAndGet();
@@ -46,6 +46,11 @@ public class ThreadsExercise10
                 // The thread safety of this relies on the fact that only the
                 // last thread to finish will get a return value of 0 from the
                 // decrementAndGet method on the AtomicInt (Since it is atomic).
+                // POST CLASS: We actually discussed that this would not work in
+                // all cases, if for instance the first thread finishes before
+                // any other thread has been started yet. Look at the solution
+                // we developed together to see a solution that does not have
+                // this problem. (^:
                 if (activeThreadCount.decrementAndGet() == 0) {
                     latch.countDown();
                 }
@@ -79,24 +84,21 @@ public class ThreadsExercise10
                     if (!wordsAlreadySeenByThisThread.contains(word)) {
                         wordsAlreadySeenByThisThread.add(word);
                         
-                        // Sometimes a good old for loop is all we need.
-                        for (int i = 0; i < word.length(); ++i) {
-                            char character = word.charAt(i);
-                            
-                            // Since globalWordSetsPerCharacter
-                            // is a concurrent hash map, we do not need to
-                            // surround this statement with a synchronized
-                            // block.
-                            globalWordSetsPerCharacter.compute(
-                                    character,
-                                    (unusedKey, theSet)-> {
-                                        if (theSet == null) {
-                                            theSet = new HashSet<>();
-                                        }
-                                        theSet.add(word);
-                                        return theSet;
-                                    });
-                        }
+                        char startingCharacter = word.charAt(0);
+
+                        // Since globalWordSetsPerCharacter
+                        // is a concurrent hash map, we do not need to
+                        // surround this statement with a synchronized
+                        // block.
+                        globalWordSetsPerCharacter.compute(
+                                startingCharacter,
+                                (unusedKey, theSet)-> {
+                                    if (theSet == null) {
+                                        theSet = new HashSet<>();
+                                    }
+                                    theSet.add(word);
+                                    return theSet;
+                                });
                     }
 				} );
 		} catch( IOException e ) {

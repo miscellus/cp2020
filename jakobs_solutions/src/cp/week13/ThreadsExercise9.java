@@ -65,7 +65,6 @@ public class ThreadsExercise9
 		try {
 			Files.lines( Paths.get( filename ) )
 				.flatMap( Words::extractWords )
-				.map( String::toLowerCase )
 				.forEach( (String word) -> {
                     // NOTE(jakob): It is not strictly nessecary for us to have
                     // this wordsAlreadySeenByThisThread set; we use it as an
@@ -76,24 +75,21 @@ public class ThreadsExercise9
                     if (!wordsAlreadySeenByThisThread.contains(word)) {
                         wordsAlreadySeenByThisThread.add(word);
                         
-                        // Sometimes a good old for loop is all we need.
-                        for (int i = 0; i < word.length(); ++i) {
-                            char character = word.charAt(i);
-                            
-                            // Since globalWordSetsPerCharacter
-                            // is a concurrent hash map, we do not need to
-                            // surround this statement with a synchronized
-                            // block.
-                            globalWordSetsPerCharacter.compute(
-                                    character,
-                                    (unusedKey, theSet)-> {
-                                        if (theSet == null) {
-                                            theSet = new HashSet<>();
-                                        }
-                                        theSet.add(word);
-                                        return theSet;
-                                    });
-                        }
+                        char startingCharacter = word.charAt(0);
+
+                        // Since globalWordSetsPerCharacter
+                        // is a concurrent hash map, we do not need to
+                        // surround this statement with a synchronized
+                        // block.
+                        globalWordSetsPerCharacter.compute(
+                                startingCharacter,
+                                (unusedKey, theSet)-> {
+                                    if (theSet == null) {
+                                        theSet = new HashSet<>();
+                                    }
+                                    theSet.add(word);
+                                    return theSet;
+                                });
                     }
 				} );
 		} catch( IOException e ) {
