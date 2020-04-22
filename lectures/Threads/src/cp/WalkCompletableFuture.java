@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class WalkCompletableFuture
 {
-	public static void main()
+	public static void main(String args[])
 	{
 		// word -> number of times it appears over all files
 		Map< String, Integer > occurrences = new ConcurrentHashMap<>();
