@@ -35,7 +35,6 @@ public class ThreadsExercise21
 		}
 	}
     
-    
     private static FileInfoAndPath computeFileInfo( Path textFile )
 	{
         long numLines = 0;
